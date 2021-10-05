@@ -2946,6 +2946,22 @@ int input_read_parameters_species(struct file_content * pfc,
       class_read_double("Omega_EDE",pba->Omega_EDE);
       class_read_double("cs2_fld",pba->cs2_fld);
     }
+
+    //Dark scattering input
+    class_call(parser_read_string(pfc,"dark_scattering",&string1,&flag1,errmsg),
+               errmsg,
+               errmsg);
+    if (flag1 == _TRUE_){
+      if(string_begins_with(string1,'y') || string_begins_with(string1,'Y')){
+        pba->has_ide_ds = _TRUE_;
+        class_read_double("xi_ds",pba->xi_ds);
+        // Convert from b/GeV to units used by CLASS (Mpc)
+        pba->xi_ds=292.181*pba->xi_ds;
+      }
+      else {
+        pba->has_ide_ds = _FALSE_;
+      }
+    }
   }
 
   /** 8.b) If Omega scalar field (SCF) is different from 0 */

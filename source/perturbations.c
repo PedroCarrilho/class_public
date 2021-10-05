@@ -8751,6 +8751,22 @@ int perturbations_derivs(double tau,
         dy[pv->index_pt_delta_cdm] = -(y[pv->index_pt_theta_cdm]+metric_continuity); /* cdm density */
 
         dy[pv->index_pt_theta_cdm] = - a_prime_over_a*y[pv->index_pt_theta_cdm] + metric_euler; /* cdm velocity */
+
+        if (pba->has_ide_ds){
+
+          class_call(background_w_fld(pba,a,&w_fld,&dw_over_da_fld,&integral_fld), pba->error_message, ppt->error_message);
+
+          double theta_fld;
+
+          if(pba->use_ppf == _FALSE_){
+            theta_fld = y[pv->index_pt_theta_fld];
+          }
+          else{
+            theta_fld = ppw->rho_plus_p_theta_fld / (pvecback[pba->index_bg_rho_fld]*(1.+w_fld));
+          }
+
+          dy[pv->index_pt_theta_cdm] += (1+w_fld)* a * pvecback[pba->index_bg_rho_fld] * pba->xi_ds * (theta_fld - y[pv->index_pt_theta_cdm]);
+        }
       }
 
       /** - ----> synchronous gauge: cdm density only (velocity set to zero by definition of the gauge) */
@@ -8887,6 +8903,10 @@ int perturbations_derivs(double tau,
           -(1.-3.*cs2)*a_prime_over_a*y[pv->index_pt_theta_fld]
           +cs2*k2/(1.+w_fld)*y[pv->index_pt_delta_fld]
           +metric_euler;
+
+        if (pba->has_ide_ds && ppt->gauge == newtonian)
+          dy[pv->index_pt_theta_fld] += a * pvecback[pba->index_bg_rho_cdm] * pba->xi_ds * (y[pv->index_pt_theta_cdm]-y[pv->index_pt_theta_fld]);
+
       }
       else {
         dy[pv->index_pt_Gamma_fld] = ppw->Gamma_prime_fld; /* Gamma variable of PPF formalism */

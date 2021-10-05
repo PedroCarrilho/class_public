@@ -126,6 +126,10 @@ struct background
   enum varconst_dependence varconst_dep; /**< dependence of the varying fundamental constants as a function of time */
   double varconst_transition_redshift; /**< redshift of transition between varied fundamental constants and normal fundamental constants in the 'varconst_instant' case*/
 
+  //New vars for IDE dark scattering
+  short has_ide_ds;
+  double xi_ds;
+
   //@}
 
 
