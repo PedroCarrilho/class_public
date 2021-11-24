@@ -8762,7 +8762,10 @@ int perturbations_derivs(double tau,
             theta_fld = y[pv->index_pt_theta_fld];
           }
           else{
-            theta_fld = ppw->rho_plus_p_theta_fld / (pvecback[pba->index_bg_rho_fld]*(1.+w_fld));
+            if (w_fld == -1.0)
+              theta_fld = 0.0;
+            else
+              theta_fld = ppw->rho_plus_p_theta_fld / (pvecback[pba->index_bg_rho_fld]*(1.+w_fld));
           }
 
           dy[pv->index_pt_theta_cdm] += (1+w_fld)* a * pvecback[pba->index_bg_rho_fld] * pba->xi_ds * (theta_fld - y[pv->index_pt_theta_cdm]);
