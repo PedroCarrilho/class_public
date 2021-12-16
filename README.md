@@ -1,4 +1,4 @@
-CLASS: Cosmic Linear Anisotropy Solving System  {#mainpage}
+CLASS: Cosmic Linear Anisotropy Solving System
 ==============================================
 
 Authors: Julien Lesgourgues, Thomas Tram, Nils Schoeneberg
@@ -9,6 +9,23 @@ Montanari, Deanna Hooper, Samuel Brieden, Daniel Meinert, Matteo Lucca, etc.
 
 For download and information, see http://class-code.net
 
+Version with Dark Scattering
+----------------------------
+
+Author: Pedro Carrilho
+
+This version allows for running the code for the dark scattering model of
+interacting dark energy (see arXiv:1007.1034 for details on the model).
+Currently works only in Newtonian gauge and for the fluid model of dark energy.
+
+The key parameters are:
+
+    dark_scattering = yes/no
+    xi_ds = value in units of b/GeV
+
+An example explanatory_DS.ini file is included, as well as the DS_example.ipynb
+jupyter notebook in the notebooks folder, which also shows a test of the PPF
+approximation.
 
 Compiling CLASS and getting started
 -----------------------------------
